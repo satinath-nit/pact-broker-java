@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.5.3</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.example</groupId>
+	<artifactId>product</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>product</name>
+	<description>Demo project for Spring Boot</description>
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>au.com.dius</groupId>
+		    <artifactId>pact-jvm-provider-junit_2.12</artifactId>
+		    <version>3.5.24</version>
+		    <scope>test</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/au.com.dius/pact-jvm-provider-spring -->
+		<dependency>
+		    <groupId>au.com.dius</groupId>
+		    <artifactId>pact-jvm-provider-spring_2.12</artifactId>
+		    <version>3.5.24</version>
+		</dependency>
+		<dependency>
+		    <groupId>junit</groupId>
+		    <artifactId>junit</artifactId>
+		    <version>4.12</version>
+		    <scope>test</scope>
+		</dependency>
+				<!-- https://mvnrepository.com/artifact/org.mockito/junit -->
+		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+		<dependency>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-core</artifactId>
+		    <version>3.6.0</version>
+		    <scope>test</scope>
+		</dependency>
+
+				
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			
+			<plugin>
+			    <groupId>au.com.dius.pact.provider</groupId>
+			    <artifactId>maven</artifactId>
+			    <version>4.1.0</version>
+			    <configuration>
+			      <serviceProviders>
+			        <!-- You can define as many as you need, but each must have a unique name -->
+			        <serviceProvider>
+			          <name>product</name>
+			          <!-- All the provider properties are optional, and have sensible defaults (shown below) -->
+			          <protocol>http</protocol>
+			          <host>localhost</host>
+			          <port>9080</port>
+			          <path>/</path>
+			          <consumers>
+			            <!-- Again, you can define as many consumers for each provider as you need, but each must have a unique name -->
+			            <consumer>
+			              <name>customer</name>
+			              <!--  currently supports a file path using pactSource or a URL using pactUrl -->
+			              <pactSource>P:\SatinathWorkspace\Code\customer\target\pacts\customer-product.json</pactSource>
+			            </consumer>
+			          </consumers>
+			        </serviceProvider>
+			      </serviceProviders>
+			    </configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
