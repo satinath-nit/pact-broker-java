@@ -1,5 +1,7 @@
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # pact-broker-java
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Example for using Pact Broker in Java using JUnit
 
 ![image](https://user-images.githubusercontent.com/32492604/128455297-703b335b-2b70-4bf8-bad5-fbd140551336.png)
@@ -18,7 +20,7 @@ $sudo chmod +x /usr/local/bin/docker-compose
 $docker-compose version
 
 4.	Create a docker-compose.yml file to build and run the docker images necessary to deploy pact-broker docker container in docker environment
-
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 docker-compose.yml
 ---------------------------------------------------------
 
@@ -68,15 +70,19 @@ services:
 
 7.	Pact Broker is live in AWS EC2 docker environment
 
-
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Develop Provider Service
-
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 1.	Implement product service API which will be consumed by customer service API
 2.	Product Service code is at https://github.com/satinath-nit/pact-broker-java/tree/main/product
 3.	Run the product service API and access the endpoint- http://localhost:9080/product/100
-
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Develop Consumer Service
-
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 1.	Implement customer service API  
 2.	Customer Service code is at https://github.com/satinath-nit/pact-broker-java/tree/main/customer
 3.	Run the product service API and access the endpoint- http://localhost:9081/customer/C100
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Writing Consumer Contract in Pact JSON file
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
