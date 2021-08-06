@@ -52,6 +52,8 @@ services:
     # ports:
     #  - "80:80"
 
+![image](https://user-images.githubusercontent.com/32492604/128455593-b8bf12bb-f5eb-479c-a7ff-a2d6c600a5f0.png)
+
 -----------------------------------------------------------------------
 
 5.	Run the docker compose 
