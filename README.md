@@ -165,3 +165,87 @@ public class ConsumerContractTests {
 }
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+Pact file -
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+![image](https://user-images.githubusercontent.com/32492604/128457376-6a3b7372-b984-495b-8a78-4adb16fdc0bb.png)
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Maven plugin to publish the pact to pact-broker
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+![image](https://user-images.githubusercontent.com/32492604/128457434-2fc404d1-91c6-4dcb-9b7d-fe697a85adb4.png)
+
+Run the maven goal to publish in pact broker
+![image](https://user-images.githubusercontent.com/32492604/128457528-5e9d7b76-76ab-4dc9-bcb6-00ba66fce367.png)
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+One the publish complete - check out to the pact broker URL-
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+![image](https://user-images.githubusercontent.com/32492604/128457616-8c93deb7-9a29-425e-8095-b04fccbce4b6.png)
+
+
+Customer and Product relationship is published
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Now its time for provider to validate the Pact and verify against pact broker
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Provider Verify Pact Tests
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+package com.example.demo.pact;
+
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.example.demo.controller.ProductController;
+import com.example.demo.entity.Product;
+
+import au.com.dius.pact.provider.junit.Consumer;
+import au.com.dius.pact.provider.junit.Provider;
+import au.com.dius.pact.provider.junit.State;
+import au.com.dius.pact.provider.junit.loader.PactBroker;
+import au.com.dius.pact.provider.junit.target.HttpTarget;
+import au.com.dius.pact.provider.junit.target.Target;
+import au.com.dius.pact.provider.junit.target.TestTarget;
+import au.com.dius.pact.provider.spring.SpringRestPactRunner;
+
+@RunWith(SpringRestPactRunner.class)
+@SpringBootTest
+@Provider("product")
+@Consumer("customer")
+@PactBroker(host = "ec2-18-191-124-226.us-east-2.compute.amazonaws.com",port = "80")
+//@PactFolder("P:\\SatinathWorkspace\\Code\\customer\\target\\pacts")
+public class ProviderTestForConsumerPactTests {
+	
+	@TestTarget
+	public Target target = new HttpTarget(9080);
+	
+	
+	@State("Get product details")
+	public void testConsumerPact() {
+		System.setProperty("pact.verifier.publishResults", "true");
+		Product product = new Product(100, "Laptop", "DELL Laptop", 1000.0);
+		ProductController mockController = Mockito.mock(ProductController.class);
+		Mockito.when(mockController.getProduct(100)).thenReturn(product);
+	}
+
+
+}
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Run the test and verify in Pact server setting "pact.verifier.publishResults" as "true"
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Done!!!
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
